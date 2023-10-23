@@ -1,0 +1,78 @@
+{
+    "name": "prisma-schema-obfuscator",
+    "version": "0.0.0",
+    "description": "Obfuscates a prisma schema so it can be shared without leaking information.",
+    "keywords": [
+        "prisma",
+        "schema",
+        "obfuscator"
+    ],
+    "homepage": "https://github.com/electrovir/prisma-schema-obfuscator",
+    "bugs": {
+        "url": "https://github.com/electrovir/prisma-schema-obfuscator/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/electrovir/prisma-schema-obfuscator"
+    },
+    "license": "(MIT or CC0 1.0)",
+    "author": {
+        "name": "electrovir",
+        "url": "https://github.com/electrovir"
+    },
+    "main": "dist/api.js",
+    "types": "dist/api.d.ts",
+    "bin": {
+        "prisma-obf": "dist/cli.js"
+    },
+    "scripts": {
+        "compile": "virmator compile",
+        "debug": "npm run test -- --inspect-brk --parallel=false",
+        "docs": "virmator docs",
+        "format": "virmator format",
+        "publish": "virmator publish \"npm run compile && npm run test:all\"",
+        "test": "virmator test",
+        "test:all": "concurrently --colors --kill-others-on-fail -c auto --names types,tests,spelling,format,docs,deps \"npm run test:types\" \"npm run test\" \"npm run test:spelling\" \"npm run test:format\" \"npm run test:docs\" \"npm run test:deps\"",
+        "test:deps": "virmator deps check",
+        "test:docs": "virmator docs check",
+        "test:format": "virmator format check",
+        "test:spelling": "virmator spellcheck",
+        "test:types": "tsc --noEmit"
+    },
+    "dependencies": {
+        "@augment-vir/common": "^21.3.6",
+        "@augment-vir/node-js": "^21.3.6",
+        "@loancrate/prisma-schema-parser": "^2.0.0",
+        "minimist": "^1.2.8"
+    },
+    "devDependencies": {
+        "@augment-vir/chai": "^21.3.6",
+        "@electrovir/nyc": "^15.1.0-fix0",
+        "@istanbuljs/nyc-config-typescript": "^1.0.2",
+        "@types/chai": "^4.3.9",
+        "@types/minimist": "^1.2.4",
+        "@types/mocha": "^10.0.3",
+        "@types/node": "^20.8.7",
+        "chai": "^4.3.10",
+        "cspell": "^7.3.8",
+        "dependency-cruiser": "^15.0.0",
+        "esbuild": "^0.19.5",
+        "istanbul-smart-text-reporter": "^1.1.2",
+        "markdown-code-example-inserter": "^0.3.2",
+        "mocha": "^10.2.0",
+        "mocha-spec-reporter-with-file-names": "^0.0.3",
+        "npm-check-updates": "~16.12.3",
+        "prettier": "^3.0.3",
+        "prettier-plugin-interpolated-html-tags": "^1.0.1",
+        "prettier-plugin-jsdoc": "^1.1.1",
+        "prettier-plugin-multiline-arrays": "^3.0.0",
+        "prettier-plugin-organize-imports": "^3.2.3",
+        "prettier-plugin-packagejson": "^2.4.6",
+        "prettier-plugin-sort-json": "^3.1.0",
+        "prettier-plugin-toml": "^1.0.0",
+        "ts-node": "^10.9.1",
+        "typedoc": "^0.25.2",
+        "typescript": "^5.2.2",
+        "virmator": "^10.0.0"
+    }
+}
