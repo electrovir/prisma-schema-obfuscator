@@ -7,7 +7,7 @@ const apiFile = join(repoRoot, 'src', 'api.ts');
 
 export const typeDocConfig: Partial<TypeDocOptions> = {
     ...baseTypedocConfig,
-    out: join(repoRoot, 'docs-dist'),
+    out: join(repoRoot, 'dist-docs'),
     entryPoints: [
         apiFile,
     ],
