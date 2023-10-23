@@ -1,8 +1,8 @@
-import {join, resolve} from 'path';
+import {join} from 'path';
 
-export const repoDir = resolve(__dirname, '..');
-const testFilesDir = join(repoDir, 'test-files');
+const testFilesDir = 'test-files';
 
 export const testFiles = {
     singleModel: join(testFilesDir, 'example-schemas', 'single-model.prisma'),
+    singleEnum: join(testFilesDir, 'example-schemas', 'single-enum.prisma'),
 };

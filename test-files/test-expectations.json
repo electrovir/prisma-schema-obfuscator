@@ -1,0 +1,14 @@
+{
+    "runCli": {
+        "obfuscates a single model": {
+            "stdout": "generator client {\n  provider = \"prisma-client-js\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url = env(\"ENV_0\")\n}\n\nmodel model_name_0 {\n  field_0 Int @id @default(autoincrement())\n  field_1 Int?\n}",
+            "stderr": "",
+            "exitCode": 0
+        },
+        "obfuscates a single enum": {
+            "stdout": "generator client {\n  provider = \"prisma-client-js\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url = env(\"ENV_0\")\n}\n\nenum ENUM_0 {\n  VALUE_0\n  VALUE_1\n  VALUE_2\n  VALUE_3\n  VALUE_4\n}",
+            "stderr": "",
+            "exitCode": 0
+        }
+    }
+}

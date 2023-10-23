@@ -31,7 +31,7 @@
         "docs": "virmator docs",
         "format": "virmator format",
         "publish": "virmator publish \"npm run compile && npm run test:all\"",
-        "test": "virmator test",
+        "test": "npm run compile && test-as-package virmator test",
         "test:all": "concurrently --colors --kill-others-on-fail -c auto --names types,tests,spelling,format,docs,deps \"npm run test:types\" \"npm run test\" \"npm run test:spelling\" \"npm run test:format\" \"npm run test:docs\" \"npm run test:deps\"",
         "test:deps": "virmator deps check",
         "test:docs": "virmator docs check",
@@ -42,15 +42,13 @@
     "dependencies": {
         "@augment-vir/common": "^21.3.6",
         "@augment-vir/node-js": "^21.3.6",
-        "@loancrate/prisma-schema-parser": "^2.0.0",
-        "minimist": "^1.2.8"
+        "@loancrate/prisma-schema-parser": "^2.0.0"
     },
     "devDependencies": {
         "@augment-vir/chai": "^21.3.6",
         "@electrovir/nyc": "^15.1.0-fix0",
         "@istanbuljs/nyc-config-typescript": "^1.0.2",
         "@types/chai": "^4.3.9",
-        "@types/minimist": "^1.2.4",
         "@types/mocha": "^10.0.3",
         "@types/node": "^20.8.7",
         "chai": "^4.3.10",
@@ -70,6 +68,8 @@
         "prettier-plugin-packagejson": "^2.4.6",
         "prettier-plugin-sort-json": "^3.1.0",
         "prettier-plugin-toml": "^1.0.0",
+        "test-as-package": "^0.0.4",
+        "test-established-expectations": "^0.5.0",
         "ts-node": "^10.9.1",
         "typedoc": "^0.25.2",
         "typescript": "^5.2.2",

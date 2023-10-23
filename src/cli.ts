@@ -2,16 +2,34 @@
 
 import {log} from '@augment-vir/node-js';
 import {existsSync} from 'fs';
-import parseArgs from 'minimist';
+import {basename} from 'path';
 import {obfuscateSchema, writeObfuscatedSchema} from './api';
 
-function extractArgs(allArgs: string[]): {inFile: string; outFile: string | undefined} {
-    const args = parseArgs(allArgs);
+const thisFileName = basename(__filename);
+const binName = 'prisma-obf';
+
+function removeIrrelevantInitialArgs(rawArgs: ReadonlyArray<string>): string[] {
+    const thisFileIndex = rawArgs.findIndex((arg) => {
+        const baseArgName = basename(arg);
+        return baseArgName === thisFileName || baseArgName === binName;
+    });
+    if (thisFileIndex === -1) {
+        return [...rawArgs];
+    } else {
+        return rawArgs.slice(thisFileIndex + 1);
+    }
+}
+
+function extractArgs(rawArgs: ReadonlyArray<string>): {
+    inFile: string;
+    outFile: string | undefined;
+} {
+    const relevantArgs = removeIrrelevantInitialArgs(rawArgs);
 
     const [
         inFile,
         outFile,
-    ] = args._;
+    ] = relevantArgs;
 
     if (!inFile) {
         throw new Error(`No input file found.`);
@@ -26,8 +44,8 @@ function extractArgs(allArgs: string[]): {inFile: string; outFile: string | unde
     };
 }
 
-async function main() {
-    const args = extractArgs(process.argv);
+export async function runCli(rawArgs: ReadonlyArray<string>): Promise<void> {
+    const args = extractArgs(rawArgs);
 
     if (args.outFile) {
         log.faint(`Reading '${args.inFile}'`);
@@ -41,4 +59,6 @@ async function main() {
     }
 }
 
-main();
+if (require.main === module) {
+    runCli(process.argv);
+}
