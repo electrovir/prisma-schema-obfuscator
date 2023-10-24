@@ -11,5 +11,5 @@ export const typeDocConfig: Partial<TypeDocOptions> = {
     entryPoints: [
         apiFile,
     ],
-    intentionallyNotExported: [],
+    intentionallyNotExported: ['WithLocation'],
 };
