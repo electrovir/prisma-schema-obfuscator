@@ -2,6 +2,8 @@
 
 Obfuscates a prisma schema so it can be shared without leaking information.
 
+This does _NOT_ cover all possible Prisma syntax cases. Please closely verify the output of this package to ensure your schema was entirely obfuscated. (If not, [open a ticket](https://github.com/electrovir/prisma-schema-obfuscator/issues/new).)
+
 ## Installation
 
 ```sh
