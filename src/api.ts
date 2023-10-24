@@ -1,6 +1,7 @@
 import {readFile, writeFile} from 'fs/promises';
 import {obfuscateSchemaText} from './obfuscate-schema-text';
 export {obfuscateSchemaText} from './obfuscate-schema-text';
+export {ObfuscationError} from './obfuscation.error';
 
 /** Read a Prisma schema, obfuscate it and return the resulting string. */
 export async function obfuscateSchema(

@@ -1,30 +1,22 @@
 #!/usr/bin/env node
 
 import {log} from '@augment-vir/node-js';
+import {extractRelevantArgs} from 'cli-args-vir';
 import {existsSync} from 'fs';
-import {basename} from 'path';
 import {obfuscateSchema, writeObfuscatedSchema} from './api';
 
-const thisFileName = basename(__filename);
 const binName = 'prisma-obf';
-
-function removeIrrelevantInitialArgs(rawArgs: ReadonlyArray<string>): string[] {
-    const thisFileIndex = rawArgs.findIndex((arg) => {
-        const baseArgName = basename(arg);
-        return baseArgName === thisFileName || baseArgName === binName;
-    });
-    if (thisFileIndex === -1) {
-        return [...rawArgs];
-    } else {
-        return rawArgs.slice(thisFileIndex + 1);
-    }
-}
 
 function extractArgs(rawArgs: ReadonlyArray<string>): {
     inFile: string;
     outFile: string | undefined;
 } {
-    const relevantArgs = removeIrrelevantInitialArgs(rawArgs);
+    const relevantArgs = extractRelevantArgs({
+        rawArgs,
+        binName,
+        fileName: __filename,
+        errorIfNotFound: true,
+    });
 
     const [
         inFile,
@@ -35,7 +27,7 @@ function extractArgs(rawArgs: ReadonlyArray<string>): {
         throw new Error(`No input file found.`);
     }
     if (!existsSync(inFile)) {
-        throw new Error(`input file '${inFile}' does not exist`);
+        throw new Error(`Given input file does not exist: '${inFile}'`);
     }
 
     return {
